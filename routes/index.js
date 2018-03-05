@@ -16,9 +16,4 @@ router.get('/videos', (req, res, next) => {
 	res.render('hello.handlebars', {foo: 'videos'});
 });
 
-router.post('/videos', (req, res, next) => {
-	console.log('POST videos');
-	res.sendStatus(201);
-});
-
 module.exports = router;
