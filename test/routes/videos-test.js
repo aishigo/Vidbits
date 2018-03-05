@@ -3,7 +3,7 @@ const {assert} = require('chai');
 const request = require('supertest');
 const {jsdom} = require('jsdom');
 const {connectDatabaseAndDropData, disconnectDatabase} = require('../database-utilities');
-
+const Video = require('../../models/video');
 const app = require('../../app');
 
 const {parseTextFromHTML, buildVideoObject} = require('../test-utils');

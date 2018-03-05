@@ -17,6 +17,7 @@
     "mocha-test": "^2.0.4",
     "mongoose": "^4.11.13",
     "morgan": "~1.8.1",
+    "npm": "^5.7.1",
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
