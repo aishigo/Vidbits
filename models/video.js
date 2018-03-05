@@ -7,6 +7,10 @@ module.exports = mongoose.model(
 		title: {
 			type: String,
 			required: true
+		},
+		description: {
+			type: String,
+			required: true
 		}
 	})
 );
