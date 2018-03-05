@@ -1,7 +1,7 @@
 const {assert} = require('chai');
 const {mongoose, databaseUrl, options} = require('../../database');
 const Video = require('../../models/video');
-const {connectDatabaseAndDropData, disconnectDatabase} = require('../database-utilities')l
+const {connectDatabaseAndDropData, disconnectDatabase} = require('../database-utilities')
 
 describe('Video model checks', () => {
 	it('has a title that is a string', () => {
@@ -11,8 +11,3 @@ describe('Video model checks', () => {
 	})
 });
 
-module.exports = {
-	connectDatabase,
-	disconnectDatabase,
-	Video
-};
