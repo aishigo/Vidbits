@@ -3,8 +3,9 @@ const Video = require('../models/video');
 
 router.post('/videos', async (req, res, next) => {
 	const {title, description} = req.body;
-	await Video.create({title, description});
-	res.sendStatus(201);
+	const createdVideo = await Video.create({title, description});
+	res.status(201);
+	res.render('show.handlebars', {title: title, description: description});
 });
 
 module.exports = router;
