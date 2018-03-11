@@ -6,6 +6,11 @@ router.get('/', (req, res, next) => {
 	res.render('index.handlebars');
 });
 
+router.get('/videos/create', (req, res, next) => {
+	console.log('videos/create');
+	res.render('create.handlebars');
+});
+
 router.post('/videos', async (req, res, next) => {
 	console.log('render show.handlebars');
 	const {title, description} = req.body;

@@ -9,7 +9,7 @@ describe('User visits the create page', () => {
             console.log(videoToCreate);
             const landingPageTitle = "Add new item";
             // Navigate to the page
-            browser.url('/videos/create.html');
+            browser.url('/videos/create');
             // Fill in the form
             browser.setValue('#title-input', videoToCreate.title);
             browser.setValue('#description-input', videoToCreate.description);
