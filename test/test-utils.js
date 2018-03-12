@@ -2,6 +2,7 @@ const {jsdom} = require('jsdom');
 const Video = require('../models/video');
 
 const buildVideoObject = (options = {}) => {
+	console.log("XOXOXOXO: " + options.title);
     const title = options.title || 'My favorite video';
     const videoUrl = options.videoUrl || 'http://placebear.com/g/200/300';
     const description = options.description || 'Just the best video';
@@ -11,6 +12,8 @@ const buildVideoObject = (options = {}) => {
 // Add a sample Item object to mongodb
 const seedVideoToDatabase = async (options = {}) => {
   const item = await Video.create(buildVideoObject(options));
+  console.log("GOGOGOGOG");
+  console.log(item);
   return item;
 };
 

@@ -6,7 +6,7 @@ const {connectDatabaseAndDropData, disconnectDatabase} = require('../database-ut
 const Video = require('../../models/video');
 const app = require('../../app');
 
-const {parseTextFromHTML, buildVideoObject} = require('../test-utils');
+const {parseTextFromHTML, buildVideoObject, seedVideoToDatabase} = require('../test-utils');
 
 describe('POST Server ', () => {
 	beforeEach(connectDatabaseAndDropData);
@@ -14,7 +14,7 @@ describe('POST Server ', () => {
 	it('checks route for a 201 code', async() => {
 		console.log('hello videos test');
 		const expectedStatusCode = 201;
-		const itemToCreate = buildVideoObject();
+		const itemToCreate = buildVideoObject({title: "test1"});
 		console.log(itemToCreate);
 		const response = await request(app)
 			.post('/videos')
@@ -23,15 +23,30 @@ describe('POST Server ', () => {
 		assert.equal(response.status, expectedStatusCode);
 	});
 	it('checks for video existing in database', async () => {
-		const itemToCreate = buildVideoObject();
-		console.log(itemToCreate);
+		const itemToCreate1 = seedVideoToDatabase({title: "test1"});
+		const itemToCreate2 = seedVideoToDatabase({title: "test2"});
+		itemToCreate1.then((item1) => {
+			console.log("ZOZOZO");
+			console.log(item1);
+			itemToCreate2.then((item2) => {
+				console.log("YOYOYO");
+				console.log(item2);
+				const result = Video.find();
+				console.log("AZAZAZA: " + result);
+				assert.strictEqual(itemToCreate1.title, result.title);
+				assert.strictEqual(itemToCreate1.description, result.description);
+			})
+		});
+		return;
 		const response = await request(app)
 			.post('/videos')
 			.type('form')
-			.send(itemToCreate);
-		const result = await Video.findOne({});
-		assert.strictEqual(itemToCreate.title, result.title);
-		assert.strictEqual(itemToCreate.description, result.description);
+			.send(itemToCreate1);
+		// const result = await Video.findOne({});
+		const result = await Video.find();
+		console.log("AZAZAZA: " + result);
+		assert.strictEqual(itemToCreate1.title, result.title);
+		assert.strictEqual(itemToCreate1.description, result.description);
 	})
 });
 

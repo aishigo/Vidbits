@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 module.exports = mongoose.model(
 	'Video',
 	// schema for video

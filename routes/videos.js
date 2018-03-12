@@ -1,14 +1,20 @@
 const router = require('express').Router();
 const Video = require('../models/video');
+const {connectDatabase, disconnectDatabase} = require('../test/database-utilities');
 
-const getVideos = () => {
-	let foundVideos = Video;
-	return [{title: "test1"}, {title: "test2"}];
+const getVideos = async () => {
+	// res.render('index.handlebars', {videos: []});
+	// return;
+	let foundVideos = await Video.find();
+	console.log("TOTOTOTOTOTO: " + foundVideos);
+	console.log(foundVideos);
+	return foundVideos;
 };
 
-router.get('/', (req, res, next) => {
-	console.log('landing page handlebars, getVideos: ' + getVideos());
-	res.render('index.handlebars', {videos: getVideos()});
+router.get('/', async (req, res, next) => {
+	console.log('landing page handlebars');
+	const foundVideos = await getVideos(res);
+	res.render('index.handlebars', {videos: foundVideos});
 });
 
 router.get('/videos/create', (req, res, next) => {
