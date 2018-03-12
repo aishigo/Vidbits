@@ -19,9 +19,14 @@ describe('User visits the create page', () => {
             // Verify we end up on the landing page
             assert.include(browser.getUrl(), '/videos');
             // Verify form title and description
+            console.log('XXXXXXXX: ' + browser.getText('body'));
             assert.include(browser.getText('body'), videoToCreate.title);
             assert.include(browser.getText('body'), videoToCreate.description);
             // assert.include(browser.getAttribute('body img', 'src'), videoToCreate.videoUrl);
-        })
+        });
+	    it('should add title to videos-container', () => {
+            browser.url('/');
+            console.log('YYYYYYYY: ' + browser.getText('#videos-container'));
+	    });
     })
 });
