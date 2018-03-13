@@ -9,6 +9,11 @@ const buildVideoObject = (options = {}) => {
     return {title, videoUrl, description};
 };
 
+const buildVideoObjectRaw = (title, videoUrl, description) => {
+	console.log("HOHOHOHO: " + title + ", " + videoUrl + ", " + description);
+    return {title, videoUrl, description};
+};
+
 // Add a sample Item object to mongodb
 const seedVideoToDatabase = async (options = {}) => {
   const item = await Video.create(buildVideoObject(options));
@@ -29,6 +34,7 @@ const parseTextFromHTML = (htmlAsString, selector) => {
 
 module.exports = {
     buildVideoObject,
+    buildVideoObjectRaw,
     parseTextFromHTML,
 	seedVideoToDatabase
 };

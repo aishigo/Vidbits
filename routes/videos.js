@@ -3,8 +3,6 @@ const Video = require('../models/video');
 const {connectDatabase, disconnectDatabase} = require('../test/database-utilities');
 
 const getVideos = async () => {
-	// res.render('index.handlebars', {videos: []});
-	// return;
 	let foundVideos = await Video.find();
 	console.log("TOTOTOTOTOTO: " + foundVideos);
 	console.log(foundVideos);
@@ -25,9 +23,19 @@ router.get('/videos/create', (req, res, next) => {
 router.post('/videos', async (req, res, next) => {
 	console.log('render show.handlebars');
 	const {title, description} = req.body;
-	const createdVideo = await Video.create({title, description});
-	res.status(201);
-	res.render('show.handlebars', {title: title, description: description});
+	console.log('=============> title: ' + title);
+	if (title === '') {
+		console.log('========> setting status to 400');
+		res.status(400);
+		res.send('could not find title input');
+		// res.render('create.handlebars', {title: title, description: description});
+	}
+	else {
+		console.log('========> setting status to 201');
+		const createdVideo = await Video.create({title, description});
+		res.status(201);
+		res.render('show.handlebars', {title: title, description: description});
+	}
 });
 
 module.exports = router;

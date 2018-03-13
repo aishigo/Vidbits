@@ -6,7 +6,7 @@ const {connectDatabaseAndDropData, disconnectDatabase} = require('../database-ut
 const Video = require('../../models/video');
 const app = require('../../app');
 
-const {parseTextFromHTML, buildVideoObject, seedVideoToDatabase} = require('../test-utils');
+const {parseTextFromHTML, buildVideoObject, buildVideoObjectRaw, seedVideoToDatabase} = require('../test-utils');
 
 describe('POST Server ', () => {
 	beforeEach(connectDatabaseAndDropData);
@@ -38,16 +38,27 @@ describe('POST Server ', () => {
 			})
 		});
 		return;
+	});
+	it('posts a video with an empty title', async () => {
+		const expectedStatusCode = 400;
+		const emptyTitleVideo = buildVideoObjectRaw("", "aVideoUrl", "ADescription");
+		console.log('======> emptyTitleVideo.title: ' + emptyTitleVideo.title);
 		const response = await request(app)
 			.post('/videos')
 			.type('form')
-			.send(itemToCreate1);
-		// const result = await Video.findOne({});
-		const result = await Video.find();
-		console.log("AZAZAZA: " + result);
-		assert.strictEqual(itemToCreate1.title, result.title);
-		assert.strictEqual(itemToCreate1.description, result.description);
-	})
+			.send(emptyTitleVideo);
+		assert.equal(response.status, expectedStatusCode);
+	});
+	it('posts a video with an empty title and checks for "could not find title input"', async () => {
+		const expectedStatusMessage = "could not find title input";
+		const emptyTitleVideo = buildVideoObjectRaw("", "aVideoUrl", "ADescription");
+		console.log('======> emptyTitleVideo.title: ' + emptyTitleVideo.title);
+		const response = await request(app)
+			.post('/videos')
+			.type('form')
+			.send(emptyTitleVideo);
+		assert.strictEqual(response.text, expectedStatusMessage);
+	});
 });
 
 describe('GET /', () => {
