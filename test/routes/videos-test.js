@@ -49,7 +49,7 @@ describe('POST Server ', () => {
 			.send(emptyTitleVideo);
 		assert.equal(response.status, expectedStatusCode);
 	});
-	it('posts a video with an empty title and checks for "could not find title input"', async () => {
+	it('posts a video with an empty title and checks for videos/create page', async () => {
 		const emptyTitleVideo = buildVideoObjectRaw("", "aVideoUrl", "ADescription");
 		console.log('======> emptyTitleVideo.title: ' + emptyTitleVideo.title);
 		const response = await request(app)
@@ -59,6 +59,16 @@ describe('POST Server ', () => {
 		const testData = parseTextFromHTML(response.text, '#create-page');
 		assert.include(testData, 'Create Video');
 	});
+	it('posts a video with an empty title and checks for a rendered error message', async () => {
+		const emptyTitleVideo = buildVideoObjectRaw("", "aVideoUrl", "ADescription");
+		const expectedRenderedError = 'title is required';
+		console.log('======> emptyTitleVideo.title: ' + emptyTitleVideo.title);
+		const response = await request(app)
+			.post('/videos')
+			.type('form')
+			.send(emptyTitleVideo);
+		assert.include(response.text, expectedRenderedError);
+	})
 });
 
 describe('GET /', () => {

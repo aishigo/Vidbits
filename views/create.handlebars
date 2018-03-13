@@ -8,6 +8,9 @@
 </head>
 <body>
 <h1 id="create-page">Create Video</h1>
+{{#if error}}
+    <span>{{error}}</span>
+{{/if}}
 <form class="input-form" action="/videos" method="post" >
     <label class="form-label" for="title">Title</label>
     <input id="title-input" name="title" maxlength="50" value="'My favorite video'"/>

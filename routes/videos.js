@@ -27,7 +27,7 @@ router.post('/videos', async (req, res, next) => {
 	if (title === '') {
 		console.log('========> setting status to 400');
 		res.status(400);
-		res.render('create.handlebars');
+		res.render('create.handlebars', {error: 'title is required'});
 	}
 	else {
 		console.log('========> setting status to 201');
