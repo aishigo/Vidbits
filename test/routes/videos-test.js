@@ -50,14 +50,14 @@ describe('POST Server ', () => {
 		assert.equal(response.status, expectedStatusCode);
 	});
 	it('posts a video with an empty title and checks for "could not find title input"', async () => {
-		const expectedStatusMessage = "could not find title input";
 		const emptyTitleVideo = buildVideoObjectRaw("", "aVideoUrl", "ADescription");
 		console.log('======> emptyTitleVideo.title: ' + emptyTitleVideo.title);
 		const response = await request(app)
 			.post('/videos')
 			.type('form')
 			.send(emptyTitleVideo);
-		assert.strictEqual(response.text, expectedStatusMessage);
+		const testData = parseTextFromHTML(response.text, '#create-page');
+		assert.include(testData, 'Create Video');
 	});
 });
 

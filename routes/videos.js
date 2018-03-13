@@ -27,8 +27,7 @@ router.post('/videos', async (req, res, next) => {
 	if (title === '') {
 		console.log('========> setting status to 400');
 		res.status(400);
-		res.send('could not find title input');
-		// res.render('create.handlebars', {title: title, description: description});
+		res.render('create.handlebars');
 	}
 	else {
 		console.log('========> setting status to 201');
